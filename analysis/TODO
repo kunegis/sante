@@ -1,0 +1,3 @@
+* Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
+* Nice x-axis ticks and tick labels (correct dates)
+* Correlation plots between pairs of events (+/- a few days)

@@ -1,0 +1,24 @@
+#
+# Sante analysis, in Python.
+#
+
+@all: plot/dv.\(\&\).pdf;
+
+plot/dv.\(\&\).pdf:  [dep]  sante/JUHRNAL sante/LEGEND -p plot dat/tracker.steps dat/tracker.distance
+{
+	py/all
+}
+
+sante/$name:  -p sante;
+
+sante;
+
+plot { mkdir -p plot ; }
+dat  { mkdir -p dat  ; }
+
+>dep: ./ { ls -1 py | sed -e '/^_/d;/~$/d;s,^,py/,' ; }
+
+dat/tracker.steps dat/tracker.distance:  sante/huawei/SportsHealth-Data.csv -p dat
+{
+	py/tracker-parse
+}

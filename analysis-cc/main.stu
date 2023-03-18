@@ -1,0 +1,53 @@
+#
+# This version is deprecated and unfinished.  It was an attempt to use the C++
+# plotting library "Root CERN", but that library sucked so much that we switched
+# to Python. 
+#
+
+% version 2.7
+
+@all:  plot/all.pdf;
+
+dat/all.dat plot/all.pdf:
+	sante/JUHRNAL
+	bin/all
+	-p dat/ -p plot/
+{
+	bin/all
+}
+
+sante/$name:  -p sante;
+
+sante/;
+
+bin/$name:  $[CXXFLAGS] bin/ [dep/bin.$name]
+{
+	g++ -std=c++14 cc/"$name".cc -o bin/"$name" $CXXFLAGS 
+}
+
+>CXXFLAGS
+{
+	printf "%s %s\n" "-pg -Werror -Wall -Wextra -ggdb -O0 -Wpedantic" \
+	       "$(root-config --glibs --cflags --libs)"
+}
+
+bin/  { mkdir -p bin  ; }
+dat/  { mkdir -p dat  ; }
+dep/  { mkdir -p dep  ; }
+plot/ { mkdir -p plot ; }
+
+>dep/bin.$name: -p dep/ stu-utils/depc
+{
+	stu-utils/depc cc/$name.cc
+}
+
+stu-utils/$name: -p stu-utils;
+
+# The Github package
+stu-utils;
+
+#
+# List of plooting libs:
+#	https://root.cern/
+#	https://alandefreitas.github.io/matplotplusplus/integration/install/binary-packages/
+#
