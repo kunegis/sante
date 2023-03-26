@@ -57,13 +57,11 @@ def plot_event(event, values, date_first):
     n_days= round(365.25*5)
     values_last_five_years= values[(n - n_days):n]
     x= [date_last + datetime.timedelta(days=xx) for xx in range(-n_days+1, 1)]
-##    x= np.array(range(len(values_last_five_years)))
     fig, ax= plt.subplots()
     ax.bar(x, values_last_five_years)
     plt.title(f'{label}, by day, last five years')
     plt.xlim([x[0] - datetime.timedelta(days= 1), x[-1] + datetime.timedelta(days= 1)])
     set_ylim(plt, values_last_five_years)
-##    plt.xlabel('Day (0 = today)')
     plt.ylabel(events.get_ylabel(event, 'df'))
     ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())
     ax.xaxis.set_minor_locator(matplotlib.dates.YearLocator(month= 7))
@@ -98,15 +96,20 @@ def plot_event(event, values, date_first):
     #
     # dt - Last three months by day
     #
-    values_last_three_months= values[(n-round(365.25 / 4)):n]
-    x= np.array(range(len(values_last_three_months)))
+    n_days= round(365.25 / 4)
+    values_last_three_months= values[(n - n_days):n]
+    x= [date_last + datetime.timedelta(days=xx) for xx in range(-n_days+1, 1)]
     fig, ax= plt.subplots()
-    ax.bar(x-len(x)+1, values_last_three_months)
+    ax.bar(x, values_last_three_months)
     plt.title(f'{label}, by day, last three months')
-    plt.xlim([-len(x)+1/2, 1/2])
+    plt.xlim([x[0] - datetime.timedelta(days= 1), x[-1] + datetime.timedelta(days= 1)])
     set_ylim(plt, values_last_three_months)
-    plt.xlabel('Day (0 = today)')
     plt.ylabel(events.get_ylabel(event, 'dt'))
+    ax.xaxis.set_major_locator(matplotlib.dates.MonthLocator())
+    ax.xaxis.set_minor_locator(matplotlib.dates.MonthLocator(bymonthday= 16))
+    ax.xaxis.set_major_formatter(ticker.NullFormatter())
+    ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%B'))
+    ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
     plt.savefig(f'plot/dt.{event}.pdf')
     plt.close('all')

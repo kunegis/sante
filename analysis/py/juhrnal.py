@@ -94,7 +94,9 @@ class Juhrnal:
 
             while len(self.texts_by_index) < index:
                 self.texts_by_index.append('')
-            assert len(self.texts_by_index) == index # Date of line is before date of earlier line
+            # Check that date of line is not before date of an earlier line 
+            if len(self.texts_by_index) != index:
+                raise Exception(f'Date is earlier is equal to a previous date: {line}')
             self.texts_by_index.append(text)
 
             #
@@ -155,6 +157,8 @@ class Juhrnal:
                         raise Exception(f'Invalid heart rate measurement «{value}»')
                     rate= int(n.group(1))
                     self.rates.append((index, rate))
+                elif measure == 'E':
+                    pass # Ignored for now
                 else:
                     # Check that the measure exists
                     unused= events.label_for_event(f'@{measure}')
