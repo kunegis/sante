@@ -546,13 +546,16 @@ def plot_measurements(j: juhrnal.Juhrnal):
     x= x - j.n_days + 1
     right_sum= right_spherical + right_cylindrical
     left_sum = left_spherical  + left_cylindrical
+    right_axis -= 180
 
     # @E.time
     fig, axarr= plt.subplots(4, sharex= True)
     axarr[0].plot(x, left_axis,         'r.')
     axarr[1].plot(x, left_sum,          'ro')
+    axarr[1].plot(x, 0.5 * (left_sum + left_spherical),   '-r')
     axarr[1].plot(x, left_spherical,    'ro')
     axarr[2].plot(x, right_spherical,   'go')
+    axarr[2].plot(x, 0.5 * (right_sum + right_spherical), '-g')
     axarr[2].plot(x, right_sum,         'go')
     axarr[3].plot(x, right_axis,        'g.')
     axarr[0].set_title('Eye tests by day')
@@ -570,10 +573,10 @@ def plot_measurements(j: juhrnal.Juhrnal):
     axarr[0].set_ylim([min(left_axis) - 0.2 * left_axis_delta, max(left_axis) + 0.2 * left_axis_delta])
     axarr[3].set_ylim([min(right_axis) - 0.2 * right_axis_delta, max(right_axis) + 0.2 * right_axis_delta])
     axarr[3].set_xlabel('Day (0 = today)')
-    axarr[0].set_ylabel('L ax')
+    axarr[0].set_ylabel('L ax [°]')
     axarr[1].set_ylabel('L [m¯¹]')
     axarr[2].set_ylabel('R [m¯¹]')
-    axarr[3].set_ylabel('R ax')
+    axarr[3].set_ylabel('R ax [°]')
     axarr[1].invert_yaxis()
     plt.savefig('plot/measurements.@E.time.pdf')
     plt.close('all')
