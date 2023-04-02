@@ -505,7 +505,7 @@ def plot_measurements(j: juhrnal.Juhrnal):
     plt.close('all')
 
     #
-    # @W - Weight
+    # @W+@F - Weight and fat percentage
     #
     xw= [e[0] - j.n_days + 1 for e in j.measurements['W']]
     yw= [e[1] for e in j.measurements['W']]
@@ -524,6 +524,59 @@ def plot_measurements(j: juhrnal.Juhrnal):
     plt.savefig('plot/measurements.@W.time.pdf')
     plt.close('all')
 
+    #
+    # @E - Eye test
+    #
+    n= len(j.eyetests)
+    x=                 np.zeros(n)
+    right_spherical=   np.zeros(n)
+    right_cylindrical= np.zeros(n)
+    right_axis=        np.zeros(n)
+    left_spherical=    np.zeros(n)
+    left_cylindrical=  np.zeros(n)
+    left_axis=         np.zeros(n)
+    for i in range(n):
+        x[i]=                 j.eyetests[i][0]
+        right_spherical[i]=   j.eyetests[i][1]
+        right_cylindrical[i]= j.eyetests[i][2]
+        right_axis[i]=        j.eyetests[i][3]
+        left_spherical[i]=    j.eyetests[i][4]
+        left_cylindrical[i]=  j.eyetests[i][5]
+        left_axis[i]=         j.eyetests[i][6]
+    x= x - j.n_days + 1
+    right_sum= right_spherical + right_cylindrical
+    left_sum = left_spherical  + left_cylindrical
+
+    # @E.time
+    fig, axarr= plt.subplots(4, sharex= True)
+    axarr[0].plot(x, left_axis,         'r.')
+    axarr[1].plot(x, left_sum,          'ro')
+    axarr[1].plot(x, left_spherical,    'ro')
+    axarr[2].plot(x, right_spherical,   'go')
+    axarr[2].plot(x, right_sum,         'go')
+    axarr[3].plot(x, right_axis,        'g.')
+    axarr[0].set_title('Eye tests by day')
+    xdist= 0.05 * (x[-1] - x[0])
+    plt.xlim([x[0] - xdist, x[-1] + xdist])
+    all_min= min(min(right_sum), min(left_sum), min(right_spherical), min(left_spherical))
+    all_max= max(max(right_sum), max(left_sum), max(right_spherical), max(left_spherical))
+    all_delta= all_max - all_min
+    all_min -= 0.2 * all_delta
+    all_max += 0.2 * all_delta
+    axarr[1].set_ylim([all_min, all_max])
+    axarr[2].set_ylim([all_min, all_max])
+    left_axis_delta=  max(left_axis) -  min(left_axis)
+    right_axis_delta= max(right_axis) - min(right_axis)
+    axarr[0].set_ylim([min(left_axis) - 0.2 * left_axis_delta, max(left_axis) + 0.2 * left_axis_delta])
+    axarr[3].set_ylim([min(right_axis) - 0.2 * right_axis_delta, max(right_axis) + 0.2 * right_axis_delta])
+    axarr[3].set_xlabel('Day (0 = today)')
+    axarr[0].set_ylabel('L ax')
+    axarr[1].set_ylabel('L [m¯¹]')
+    axarr[2].set_ylabel('R [m¯¹]')
+    axarr[3].set_ylabel('R ax')
+    axarr[1].invert_yaxis()
+    plt.savefig('plot/measurements.@E.time.pdf')
+    plt.close('all')
     
 # Determines whether we exclude days with zero values from normalization.  
 def exclude_zeroes(event):
