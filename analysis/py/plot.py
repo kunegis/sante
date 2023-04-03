@@ -550,14 +550,14 @@ def plot_measurements(j: juhrnal.Juhrnal):
 
     # @E.time
     fig, axarr= plt.subplots(4, sharex= True)
-    axarr[0].plot(x, left_axis,         'r.')
+    axarr[0].plot(x[left_cylindrical != 0], left_axis[left_cylindrical != 0],         'r.')
     axarr[1].plot(x, left_sum,          'ro')
     axarr[1].plot(x, 0.5 * (left_sum + left_spherical),   '-r')
     axarr[1].plot(x, left_spherical,    'ro')
     axarr[2].plot(x, right_spherical,   'go')
     axarr[2].plot(x, 0.5 * (right_sum + right_spherical), '-g')
     axarr[2].plot(x, right_sum,         'go')
-    axarr[3].plot(x, right_axis,        'g.')
+    axarr[3].plot(x[right_cylindrical != 0], right_axis[right_cylindrical != 0],        'g.')
     axarr[0].set_title('Eye tests by day')
     xdist= 0.05 * (x[-1] - x[0])
     plt.xlim([x[0] - xdist, x[-1] + xdist])
@@ -566,12 +566,14 @@ def plot_measurements(j: juhrnal.Juhrnal):
     all_delta= all_max - all_min
     all_min -= 0.2 * all_delta
     all_max += 0.2 * all_delta
+    all_max= min(0, all_max)
     axarr[1].set_ylim([all_min, all_max])
     axarr[2].set_ylim([all_min, all_max])
-    left_axis_delta=  max(left_axis) -  min(left_axis)
-    right_axis_delta= max(right_axis) - min(right_axis)
-    axarr[0].set_ylim([min(left_axis) - 0.2 * left_axis_delta, max(left_axis) + 0.2 * left_axis_delta])
-    axarr[3].set_ylim([min(right_axis) - 0.2 * right_axis_delta, max(right_axis) + 0.2 * right_axis_delta])
+    axis_min= min(min(left_axis[left_cylindrical != 0]), min(-right_axis[left_cylindrical != 0]))
+    axis_max= max(max(left_axis[left_cylindrical != 0]), max(-right_axis[left_cylindrical != 0]))
+    axis_delta= axis_max - axis_min
+    axarr[0].set_ylim([axis_min - 0.2 * axis_delta, axis_max + 0.2 * axis_delta])
+    axarr[3].set_ylim([-axis_max - 0.2 * axis_delta, -axis_min + 0.2 * axis_delta])
     axarr[3].set_xlabel('Day (0 = today)')
     axarr[0].set_ylabel('L ax [°]')
     axarr[1].set_ylabel('L [m¯¹]')

@@ -78,7 +78,7 @@ class Juhrnal:
 
             m= re.compile('([0-9]{4})(      |-([0-9]{2})(  |-([0-9]{2})))(| (.*))').fullmatch(line)
             if not m:
-                self.raise_error('Invalid line')
+                self.raise_error('Invalid date')
 
             text_year = m.group(1)
             text_month= m.group(3)
