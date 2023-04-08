@@ -39,14 +39,19 @@ def plot_event(event, values, date_first):
     #
     # dv - All by day
     #
-    x= np.array(range(n))
+    x= np.array([date_last + datetime.timedelta(days=xx) for xx in range(-n+1,1)])
+#    x= np.array(range(n))
     fig, ax= plt.subplots()
-    ax.bar(x-len(x)+1, values)
+    ax.bar(x, values)
+#    ax.bar(x-len(x)+1, values)
     plt.title(f'{label}, by day, full range')
-    plt.xlim([-len(x)+1/2, 1/2])
+    plt.xlim([x[0] - datetime.timedelta(days= 1), x[-1] + datetime.timedelta(days= 1)])
+#    plt.xlim([-len(x)+1/2, 1/2])
     set_ylim(plt, values)
-    plt.xlabel('Day (0 = today)')
+#    plt.xlabel('Day (0 = today)')
     plt.ylabel(events.get_ylabel(event, 'dv'))
+    ax.xaxis.set_major_locator(matplotlib.dates.YearLocator(5))
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y'))
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
     plt.savefig(f'plot/dv.{event}.pdf')
     plt.close('all')

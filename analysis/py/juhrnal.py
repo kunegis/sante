@@ -104,7 +104,7 @@ class Juhrnal:
                 self.texts_by_index.append('')
             # Check that date of line is not before date of an earlier line 
             if len(self.texts_by_index) != index:
-                raise_error('Date is earlier or equal to a previous date')
+                self.raise_error('Date is earlier or equal to a previous date')
             self.texts_by_index.append(text)
 
             #
@@ -114,11 +114,12 @@ class Juhrnal:
                 text_inner= mm
                 mmm= re.compile('([0-9]*)([^0-9)])').fullmatch(text_inner)
                 if not mmm:
-                    raise_error('Syntax error in event ({text_inner})')
+                    self.raise_error('Syntax error in event ({text_inner})')
                 text_intensity  = mmm.group(1)
                 event_underlying= mmm.group(2)
                 event= f'({event_underlying})'
-                if event_underlying == 'A':  raise_error('Event (A) is not allowed')
+                if event_underlying == 'A':
+                    self.raise_error('Event (A) is not allowed')
                 intensity= 1
                 if text_intensity != '':  intensity= int(text_intensity)
                 self.add_event(index, event, intensity)
@@ -136,7 +137,7 @@ class Juhrnal:
             #
             for mm in re.compile('#(\w+)(\W|$)').findall(text):
                 tag= mm[0]
-                if tag == 'all':  raise_error('Tag #all is not allowed')
+                if tag == 'all':  self.raise_error('Tag #all is not allowed')
                 events.check_tag(tag)
                 event= f'#{tag}'
                 self.add_event(index, event)
@@ -147,7 +148,7 @@ class Juhrnal:
             for text_inner in re.compile('@([^@]*)@').findall(text):
                 mm= re.compile('([A-Z])=([^@]+)').fullmatch(text_inner)
                 if not mm:
-                    raise_error(f'Syntax error in measurement @{text_inner}@')
+                    self.raise_error(f'Syntax error in measurement @{text_inner}@')
                 measure= mm.group(1)
                 value  = mm.group(2)
                 event= f'@{measure}'
@@ -155,20 +156,20 @@ class Juhrnal:
                 if measure == 'P':
                     n= re.compile('([0-9]+)/([0-9]+)').fullmatch(value)
                     if not n:
-                        raise_error(f'Invalid pressure measurement "{value}"')
+                        self.raise_error(f'Invalid pressure measurement "{value}"')
                     systolic = int(n.group(1))
                     diastolic= int(n.group(2))
                     self.pressures.append((index, systolic, diastolic))
                 elif measure == 'R':
                     n= re.compile('([0-9]+)').fullmatch(value)
                     if not n:
-                        raise_error(f'Invalid heart rate measurement "{value}"')
+                        self.raise_error(f'Invalid heart rate measurement "{value}"')
                     rate= int(n.group(1))
                     self.rates.append((index, rate))
                 elif measure == 'E':
                     n= re.compile('([-0-9.]+),([-0-9.]+),([-0-9.]+);([-0-9.]+),([-0-9.]+),([-0-9.]+)').fullmatch(value)
                     if not n:
-                        raise_error(f'Invalid eye measurement "{value}"')
+                        self.raise_error(f'Invalid eye measurement "{value}"')
                     right_spherical=   float(n.group(1))
                     right_cylindrical= float(n.group(2))
                     right_axis=        float(n.group(3))
@@ -187,7 +188,7 @@ class Juhrnal:
                         value= value[:-1]
                     n= re.compile('[0-9]+(|\.[0-9]+)').fullmatch(value)
                     if not n:
-                        raise_error(f'Invalid measurement value in "{text_inner}"')
+                        self.raise_error(f'Invalid measurement value in "{text_inner}"')
                     value= float(value)
                     self.add_measurement(measure, index, value)
                 
@@ -195,7 +196,7 @@ class Juhrnal:
             # Proscribed patterns
             #
             if text.count('@') % 2 != 0:
-                raise_error('"@" must appear an even number of times in each line')
+                self.raise_error('"@" must appear an even number of times in each line')
                 
         file.close()
 
@@ -215,7 +216,7 @@ class Juhrnal:
                 if re.compile('[[:space:]]*').fullmatch(line):  continue
                 m= re.compile('^([0-9]{4})-([0-9]{2})-([0-9]{2})\s+([0-9]+)$').fullmatch(line)
                 if not m:
-                    raise_error(f'Invalid tracker line "{line}"')
+                    self.raise_error(f'Invalid tracker line "{line}"')
                 text_year = m.group(1)
                 text_month= m.group(2)
                 text_day  = m.group(3)
@@ -277,5 +278,3 @@ class Juhrnal:
     def raise_error(self, text):
         print(f'\n{self.filename}:{self.line_count}: {text}', file= sys.stderr)
         sys.exit(1)
-        
-    
