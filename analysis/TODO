@@ -1,4 +1,3 @@
-* separate calculation into individual targets
 * separate event calculation into individual targets
 * better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, measurements.
 ** implemented for da.*; use it as template for the rest
