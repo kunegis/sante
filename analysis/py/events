@@ -1,7 +1,4 @@
 #! /usr/bin/env python3
-# 
-# Generate and plot the main stuff. 
-#
 
 import juhrnal
 import plot
@@ -10,18 +7,9 @@ print('Reading...', end= '', flush= True)
 j= juhrnal.Juhrnal()
 print('done')
 
-print('Histograms...', end= '', flush= True)
-plot.plot_histograms(j)
-print('done')
-
-print('Measurement plots...', end= '', flush= True)
-plot.plot_measurements(j)
-print('done')
-
 print('Plotting by event...', end= '', flush= True)
 for event in sorted(list(j.intensities_by_index_by_event)):
     print(f' {event}', end= '', flush= True)
     intensities= j.intensities_by_index_by_event[event]
     plot.plot_event(event, intensities, j.date_first)
 print('...done')
-

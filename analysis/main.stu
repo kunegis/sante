@@ -2,21 +2,38 @@
 # Sante analysis, in Python.
 #
 
-@all: plot/dv.\(\&\).pdf;
+@all:  @histograms @measurements @events;
 
-plot/dv.\(\&\).pdf:  [dep]  sante/JUHRNAL sante/LEGEND -p plot dat/tracker.steps dat/tracker.distance
+@events: plot/dv.\(\&\).pdf;
+plot/dv.\(\&\).pdf:  [dep]
+	sante/JUHRNAL sante/LEGEND
+	-p plot 
 {
-	py/all
+	py/events
+}
+
+@histograms:  plot/hist.problems.pdf;
+plot/hist.problems.pdf:  [dep]
+	sante/JUHRNAL sante/LEGEND
+	-p plot dat/tracker.steps dat/tracker.distance
+{
+	py/histograms
+}
+
+@measurements: plot/measurements.\@P.time.pdf;
+plot/measurements.\@P.time.pdf:  [dep]
+	sante/JUHRNAL sante/LEGEND
+	-p plot 
+{
+	py/measurements
 }
 
 sante/$name:  -p sante;
-
 sante;
-
 plot { mkdir -p plot ; }
 dat  { mkdir -p dat  ; }
 
->dep: ./ { ls -1 py | sed -e '/^_/d;/~$/d;s,^,py/,' ; }
+>dep: ./ { ls -1U py | sed -E -e '/^_/d;/~$/d;s,^,py/,' ; }
 
 dat/tracker.steps dat/tracker.distance:  sante/huawei/SportsHealth-Data.csv -p dat
 {

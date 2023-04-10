@@ -1,4 +1,5 @@
-* separate calculation into individual targets for faster testing and parallelization
+* separate calculation into individual targets
+* separate event calculation into individual targets
 * better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, measurements.
 ** implemented for da.*; use it as template for the rest
 * normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
@@ -7,4 +8,3 @@
 * In da.*, there should be no X label for the last (unfinished) month
 * In da.*, there should be the year number under January and under the first month
 * Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
-* Correlation plots between pairs of events (+/- a few days)
