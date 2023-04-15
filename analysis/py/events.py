@@ -7,11 +7,8 @@ import re
 import sys
 
 class _Data:
-
     texts_by_event= None
-
     tags= set()
-
     subevents_by_aggregate_event= None
 
 #
@@ -147,4 +144,3 @@ def init_data():
                 _Data.subevents_by_aggregate_event[parent_event]= subevents
 
         file.close()
-        

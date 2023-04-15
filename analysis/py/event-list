@@ -1,0 +1,13 @@
+#! /usr/bin/env python3
+#
+# STDOUT
+#	Events, one per line
+#
+
+import juhrnal
+import plot
+
+j= juhrnal.Juhrnal()
+
+for event in sorted(list(j.intensities_by_index_by_event)):
+    print(event)

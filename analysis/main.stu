@@ -4,25 +4,25 @@
 
 @all:  @histograms @measurements @events;
 
-@events: plot/dv.\(\&\).pdf;
-plot/dv.\(\&\).pdf:  [dep]
-	sante/JUHRNAL sante/LEGEND
-	-p plot 
+@events:  @event.[-n dat/EVENTS];
+
+@event.$event plot/dv.$event.pdf:  [dat/dep] sante/JUHRNAL sante/LEGEND -p plot 
 {
-	py/events
+	py/event-one
 }
 
-@histograms:  plot/hist.problems.pdf;
-plot/hist.problems.pdf:  [dep]
-	sante/JUHRNAL sante/LEGEND
+>dat/EVENTS:  [dat/dep] sante/JUHRNAL sante/LEGEND
+{
+	py/event-list
+}
+
+@histograms plot/hist.problems.pdf:  [dat/dep] sante/JUHRNAL sante/LEGEND
 	-p plot dat/tracker.steps dat/tracker.distance
 {
 	py/histograms
 }
 
-@measurements: plot/measurements.\@P.time.pdf;
-plot/measurements.\@P.time.pdf:  [dep]
-	sante/JUHRNAL sante/LEGEND
+@measurements plot/measurements.\@P.time.pdf:  [dat/dep] sante/JUHRNAL sante/LEGEND
 	-p plot 
 {
 	py/measurements
@@ -33,7 +33,7 @@ sante;
 plot { mkdir -p plot ; }
 dat  { mkdir -p dat  ; }
 
->dep: ./ { ls -1U py | sed -E -e '/^_/d;/~$/d;s,^,py/,' ; }
+>dat/dep: dat { ls -1U py | sed -E -e '/^_/d;/~$/d;s,^,py/,' ; }
 
 dat/tracker.steps dat/tracker.distance:  sante/huawei/SportsHealth-Data.csv -p dat
 {

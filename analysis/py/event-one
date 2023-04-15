@@ -1,0 +1,11 @@
+#! /usr/bin/env python3
+
+import os
+
+import juhrnal
+import plot
+
+j= juhrnal.Juhrnal()
+event= os.getenv('event');
+intensities= j.intensities_by_index_by_event[event]
+plot.plot_event(event, intensities, j.date_first)
