@@ -1,4 +1,3 @@
-* separate event calculation into individual targets
 * better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, measurements.
 ** implemented for da.*; use it as template for the rest
 * normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
