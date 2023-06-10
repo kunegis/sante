@@ -6,3 +6,4 @@
 * In da.*, there should be no X label for the last (unfinished) month
 * In da.*, there should be the year number under January and under the first month
 * Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
+* Check whether line numbers in JUHRNAL error messages are off by one.
