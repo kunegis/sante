@@ -20,6 +20,10 @@ def set_ylim(plt, values):
     if not np.any(values):
         plt.ylim([0, +1.05])
 
+def extra_lines(plt, event):
+    if event == '$steps':
+        plt.axhline(10000, color= '0.8', zorder= -1.0)
+        
 #    
 # Generate all plots related to one event type.
 #
@@ -49,6 +53,7 @@ def plot_event(event, values, date_first):
     ax.xaxis.set_major_locator(matplotlib.dates.YearLocator(5))
     ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y'))
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/dv.{event}.pdf')
     plt.close('all')
 
@@ -70,6 +75,7 @@ def plot_event(event, values, date_first):
     ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%Y'))
     ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/df.{event}.pdf')
     plt.close('all')
 
@@ -91,6 +97,7 @@ def plot_event(event, values, date_first):
     ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%b'))
     ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/da.{event}.pdf')
     plt.close('all')
 
@@ -112,6 +119,7 @@ def plot_event(event, values, date_first):
     ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%B'))
     ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
     ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/dt.{event}.pdf')
     plt.close('all')
 
@@ -158,6 +166,7 @@ def plot_event(event, values, date_first):
     plt.xticks(x, weekday_names)
     if not normalize:
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/dz.{event}.pdf')
     plt.close('all')
     
@@ -175,6 +184,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'wv'))
     if not events.get_normalize(event, 'wv'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/wv.{event}.pdf')
     plt.close('all')
 
@@ -193,6 +203,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'wf'))
     if not events.get_normalize(event, 'wf'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/wf.{event}.pdf')
     plt.close('all')
 
@@ -211,6 +222,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'wa'))
     if not events.get_normalize(event, 'wa'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/wa.{event}.pdf')
     plt.close('all')
 
@@ -255,6 +267,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'mv'))
     if not events.get_normalize(event, 'mv'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/mv.{event}.pdf')
     plt.close('all')
 
@@ -273,6 +286,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'mf'))
     if not events.get_normalize(event, 'mf'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/mf.{event}.pdf')
     plt.close('all')
 
@@ -301,6 +315,7 @@ def plot_event(event, values, date_first):
     plt.xticks(x-len(x)+1, month_names_shifted)
     if not events.get_normalize(event, 'ma'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/ma.{event}.pdf')
     plt.close('all')
 
@@ -333,6 +348,7 @@ def plot_event(event, values, date_first):
     plt.xticks(x, month_names)
     if not events.get_normalize(event, 'mz'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/mz.{event}.pdf')
     plt.close('all')
 
@@ -368,6 +384,7 @@ def plot_event(event, values, date_first):
     plt.ylabel(events.get_ylabel(event, 'av'))
     if not events.get_normalize(event, 'av'):
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
+    extra_lines(plt, event)
     plt.savefig(f'plot/av.{event}.pdf')
     plt.close('all')
 
