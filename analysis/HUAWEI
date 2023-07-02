@@ -1,0 +1,27 @@
+How to get Huawei steps data:
+
+* On your phone, open the Huawei Health app.
+* Tap the 'Me' button in the lower right-hand corner of the main screen.
+* Tap on your username at the top (this can take 5 seconds or so to react)
+* Tap on 'Privacy Center'.
+* Tap 'Request Your Data' / 'Download your data'
+* Enter Huawei account password
+* Enter code received by email (it always lands in the spam folder)
+* Select 'Health' from the list
+* Select the largest size possible
+* You will be obligated to enter a password to encrypt the requested data with. Use the password in the file for the Huawei account. 
+* Huawei needs 6 days to make the download available.
+* Click on the link in the email, login again, be sent a notification on the smartphone with a number, enter it on the website
+* Click on "Request Data", type in password again, be sent a notification email (always in the spam folder), enter it on the website
+* Click on "Download"; it's a "zip" file
+* Unzip the file not using "unzip", but using "7za x FILENAME" (it's encrypted, use the password entered earlier).  Warning:  the "zip file" does not contain a directory and will spam the current directory with data. 
+* The data is in the file 'SportsHealth data & description'/SportsHealth-Data.xls which is a binary spreadsheet.
+* Open that spreadsheet with LibreOffice.
+* Go to page 11 of the spreadsheet (sport daily dimen statistics).
+* "Save As" that page as CSV to file 'SportsHealth-Data.csv'.
+* Copy the file to '~/src/archiv/sante/huawei/SportsHealth-Data.csv'.  (Using cp -b)
+
+Other links:
+* https://github.com/CTHRU/Hitrava (list of steps)
+* https://forum.xda-developers.com/t/share-exercise-data-from-the-huawei-health-app.3909998/
+* https://github.com/aricooperdavis/Huawei-TCX-Converter/blob/main/README.md

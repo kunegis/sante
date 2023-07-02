@@ -213,7 +213,7 @@ class Juhrnal:
                 line= file.readline()
                 if not line:  break
                 line= re.sub('\n', '', line)
-                if re.compile('[[:space:]]*').fullmatch(line):  continue
+                if re.compile('[:space:]*').fullmatch(line):  continue
                 m= re.compile('^([0-9]{4})-([0-9]{2})-([0-9]{2})\s+([0-9]+)$').fullmatch(line)
                 if not m:
                     self.raise_error(f'Invalid tracker line "{line}"')
