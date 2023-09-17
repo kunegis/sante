@@ -525,9 +525,9 @@ def plot_measurements(j: juhrnal.Juhrnal):
     #
     # @W+@F - Weight and fat percentage
     #
-    xw= [e[0] - j.n_days + 1 for e in j.measurements['W']]
+    xw= [j.date_first + datetime.timedelta(days=e[0]) for e in j.measurements['W']]
     yw= [e[1] for e in j.measurements['W']]
-    xf= [e[0] - j.n_days + 1 for e in j.measurements['F']]
+    xf= [j.date_first + datetime.timedelta(days=e[0]) for e in j.measurements['F']]
     yf= [e[1] for e in j.measurements['F']]
 
     # @W.time
@@ -535,10 +535,19 @@ def plot_measurements(j: juhrnal.Juhrnal):
     axarr[0].plot(xw, yw, 'go')
     axarr[1].plot(xf, yf, 'bo')
     axarr[0].set_title('Weight measurements by day')
-    plt.xlim([min([xw[0], xf[0]]) - 1/2, 1/2])
-    axarr[1].set_xlabel('Day (0 = today)')
+    plt.xlim([xw[0] - datetime.timedelta(days= 1), xw[-1] + datetime.timedelta(days= 1)])
     axarr[0].set_ylabel('Body weight [kg]')
     axarr[1].set_ylabel('Body fat [%]')
+    axarr[1].xaxis.set_major_locator(matplotlib.dates.MonthLocator())
+    axarr[1].xaxis.set_minor_locator(matplotlib.dates.MonthLocator(bymonthday= 16))
+    axarr[1].xaxis.set_major_formatter(ticker.NullFormatter())
+    axarr[1].xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%b'))
+    axarr[0].tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
+    axarr[1].tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
+    axarr[0].axhline(65, color= '0.8', zorder= -1.0)
+    axarr[0].axhline(70, color= '0.8', zorder= -1.0)
+    axarr[0].axhline(75, color= '0.8', zorder= -1.0)
+    axarr[1].axhline(20, color= '0.8', zorder= -1.0)
     plt.savefig('plot/measurements.@W.time.pdf')
     plt.close('all')
 
