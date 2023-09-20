@@ -1,4 +1,4 @@
-* better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, @E.time, @R.time, remaining measurements.
+* better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, @E.time.
 * normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
 * make BMI plot from @W+@H+age
 * In da.*, there should be no X label for the last (unfinished) month

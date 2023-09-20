@@ -487,7 +487,6 @@ def plot_measurements(j: juhrnal.Juhrnal):
         ys[i]= j.pressures[i][1]
         yd[i]= j.pressures[i][2]
     x= [j.date_first + datetime.timedelta(days= xi) for xi in x]
-##    x= np.array(x) - j.n_days + 1
 
     # @P.time
     fig, axarr= plt.subplots(2, sharex= True)
@@ -497,8 +496,6 @@ def plot_measurements(j: juhrnal.Juhrnal):
     plt.xlim([x[0] - datetime.timedelta(days= 1), x[-1] + datetime.timedelta(days= 1)])
     set_xlabel_month_by_day(axarr[0], hide_text= True)
     set_xlabel_month_by_day(axarr[1])
-##    plt.xlim([x[0] - 1/2, 1/2])
-##    axarr[1].set_xlabel('Day (0 = today)')
     axarr[0].axhline(120, color= '0.8', zorder= -1.0)
     axarr[1].axhline(80, color= '0.8', zorder= -1.0)
     axarr[0].set_ylabel('Systolic [mmHg]')
@@ -526,14 +523,14 @@ def plot_measurements(j: juhrnal.Juhrnal):
     for i in range(n):
         x[i]= j.rates[i][0]
         y[i]= j.rates[i][1]
-    x -= j.n_days - 1
+    x= [j.date_first + datetime.timedelta(days= xi) for xi in x]
     
     # @R.time
     fig, ax= plt.subplots()
     ax.plot(x, y, 'o')
     plt.title('Heart rate measurements by day')
-    plt.xlabel('Day (0 = today)')
     plt.ylabel('Heart rate [bpm]')
+    set_xlabel_month_by_day(ax)
     plt.savefig('plot/measurements.@R.time.pdf')
     plt.close('all')
 
