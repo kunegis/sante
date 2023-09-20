@@ -1,6 +1,4 @@
-* Make PWA plots
-* better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, remaining measurements.
-** implemented for da.*; use it as template for the rest
+* better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, @E.time, @R.time, remaining measurements.
 * normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
 * make BMI plot from @W+@H+age
 * In da.*, there should be no X label for the last (unfinished) month
@@ -8,3 +6,8 @@
 * Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
 * Check whether line numbers in JUHRNAL error messages are off by one.
 * Measurement plots:  temperature by time.
+* Measurement plots:  @I Waist circumference by time.
+* dz. plots should not have X axis ticks.
+
+== Parking lot ==
+* Make PWA plots
