@@ -1,13 +1,19 @@
-* better X axis labels (no more "0 = today").  In:  mf.*, mv.*, wa.*, wf.*, wv.*, @E.time.
-* normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
-* make BMI plot from @W+@H+age
 * In da.*, there should be no X label for the last (unfinished) month
 * In da.*, there should be the year number under January and under the first month
-* Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
-* Check whether line numbers in JUHRNAL error messages are off by one.
-* Measurement plots:  temperature by time.
-* Measurement plots:  @I Waist circumference by time.
 * dz. plots should not have X axis ticks.
+* Measurement plots:  @I Waist circumference by time. (once there is enough data)
 
 == Parking lot ==
 * Make PWA plots
+* better X axis labels (no more "0 = today").
+** set_xlabel_month_by_day:		  (done individually:  da.*, dt.*)  (done by function:  @P.time, @R.time, @W.time)
+** set_xlabel_month_by_week:  wa.*
+** set_xlabel_month_by_month:		  (done individually:  ma.*)
+** set_xlabel_year_by_day:    		  (done individually:  df.*, dv.*)  (done by function:  @E.time)
+** set_xlabel_year_by_week:   wf.*, wv.*
+** set_xlabel_year_by_month:  mf.*, mv.*
+** set_xlabel_year_by_year:   		  (done individually:  av.*)
+* normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
+* make BMI plot from @W+@H+age
+* Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
+* Measurement plots:  temperature by time.

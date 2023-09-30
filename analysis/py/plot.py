@@ -32,6 +32,22 @@ def set_xlabel_month_by_day(ax, hide_text= False):
         ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%b'))
     ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
 
+def set_xlabel_year_by_day(ax, hide_text= False):
+    if not hide_text:
+        ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())
+        ax.xaxis.set_minor_locator(matplotlib.dates.YearLocator(month= 7))
+        ax.xaxis.set_major_formatter(ticker.NullFormatter())
+        ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%Y'))
+    ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
+    
+def set_xlabel_year_by_day_compact(ax, hide_text= False):
+    if not hide_text:
+        ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())
+        ax.xaxis.set_minor_locator(matplotlib.dates.YearLocator(month= 7))
+        ax.xaxis.set_major_formatter(ticker.NullFormatter())
+        ax.xaxis.set_minor_formatter(matplotlib.dates.DateFormatter('%y'))
+        ax.xaxis.set_tick_params(labelsize= 7, which= 'minor')
+    ax.tick_params(axis='x', which='minor', tick1On=False, tick2On=False)
         
 #    
 # Generate all plots related to one event type.
@@ -578,7 +594,8 @@ def plot_measurements(j: juhrnal.Juhrnal):
         left_spherical[i]=    j.eyetests[i][4]
         left_cylindrical[i]=  j.eyetests[i][5]
         left_axis[i]=         j.eyetests[i][6]
-    x= x - j.n_days + 1
+    x= [j.date_first + datetime.timedelta(days= xi) for xi in x]
+    x= np.array(x)
     right_sum= right_spherical + right_cylindrical
     left_sum = left_spherical  + left_cylindrical
     right_axis -= 180
@@ -609,12 +626,16 @@ def plot_measurements(j: juhrnal.Juhrnal):
     axis_delta= axis_max - axis_min
     axarr[0].set_ylim([axis_min - 0.2 * axis_delta, axis_max + 0.2 * axis_delta])
     axarr[3].set_ylim([-axis_max - 0.2 * axis_delta, -axis_min + 0.2 * axis_delta])
-    axarr[3].set_xlabel('Day (0 = today)')
+##    axarr[3].set_xlabel('Day (0 = today)')
     axarr[0].set_ylabel('L ax [°]')
     axarr[1].set_ylabel('L [m¯¹]')
     axarr[2].set_ylabel('R [m¯¹]')
     axarr[3].set_ylabel('R ax [°]')
     axarr[1].invert_yaxis()
+    set_xlabel_year_by_day_compact(axarr[0], True)
+    set_xlabel_year_by_day_compact(axarr[1], True)
+    set_xlabel_year_by_day_compact(axarr[2], True)
+    set_xlabel_year_by_day_compact(axarr[3])
     plt.savefig('plot/measurements.@E.time.pdf')
     plt.close('all')
     
