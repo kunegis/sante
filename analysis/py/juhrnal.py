@@ -43,9 +43,10 @@ class Juhrnal:
     def add_event(self, index, event, intensity= 1):
         assert(type(intensity) == int)
         if not event in self.intensities_by_index_by_event:
-            self.intensities_by_index_by_event[event]= []
+            self.intensities_by_index_by_event[event]= np.array([], dtype= int)
         while len(self.intensities_by_index_by_event[event]) <= index:
-            self.intensities_by_index_by_event[event].append(0)
+            self.intensities_by_index_by_event[event]= np.append(
+                self.intensities_by_index_by_event[event], np.zeros(1, dtype= int))
         assert len(self.intensities_by_index_by_event[event]) > index
         self.intensities_by_index_by_event[event][index] += intensity
 
@@ -245,13 +246,12 @@ class Juhrnal:
 
         for event in self.intensities_by_index_by_event:
             if len(self.intensities_by_index_by_event[event]) < self.n_days:
-                self.intensities_by_index_by_event[event] += \
-                    [0] * (self.n_days - len(self.intensities_by_index_by_event[event]))
+                self.intensities_by_index_by_event[event]= np.append(self.intensities_by_index_by_event[event], np.zeros(self.n_days - len(self.intensities_by_index_by_event[event]), dtype= int))
 
         #
         # Aggregated events:  {A}, #all
         #
-        intensities_A= np.array([0] * self.n_days)
+        intensities_A= np.zeros([self.n_days], dtype= int)
         for event in self.intensities_by_index_by_event:
             m= re.compile('\([a-zα-ω]\)').fullmatch(event)
             if m:

@@ -153,7 +153,7 @@ def plot_event(event, values, date_first):
     #
     weekday_first= date_first.weekday()
     to_add= weekday_first
-    values_from_monday= [0] * to_add + values
+    values_from_monday= np.append(np.zeros(to_add, dtype= int), values)
 
     #
     # Aggregate by week
@@ -189,6 +189,7 @@ def plot_event(event, values, date_first):
     plt.xlim([-1/2, 7-1/2])
     plt.ylabel(events.get_ylabel(event, 'dz'))
     plt.xticks(x, weekday_names)
+    plt.tick_params(bottom= False)
     if not normalize:
         ax.yaxis.set_major_locator(ticker.MaxNLocator(integer= True))
     extra_lines(plt, event)
@@ -626,7 +627,6 @@ def plot_measurements(j: juhrnal.Juhrnal):
     axis_delta= axis_max - axis_min
     axarr[0].set_ylim([axis_min - 0.2 * axis_delta, axis_max + 0.2 * axis_delta])
     axarr[3].set_ylim([-axis_max - 0.2 * axis_delta, -axis_min + 0.2 * axis_delta])
-##    axarr[3].set_xlabel('Day (0 = today)')
     axarr[0].set_ylabel('L ax [°]')
     axarr[1].set_ylabel('L [m¯¹]')
     axarr[2].set_ylabel('R [m¯¹]')

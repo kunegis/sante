@@ -1,6 +1,3 @@
-* In da.*, there should be no X label for the last (unfinished) month
-* In da.*, there should be the year number under January and under the first month
-* dz. plots should not have X axis ticks.
 * Measurement plots:  @I Waist circumference by time. (once there is enough data)
 
 == Parking lot ==
@@ -17,3 +14,5 @@
 * make BMI plot from @W+@H+age
 * Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
 * Measurement plots:  temperature by time.
+* In da.*, there should be the year number under January and under the first month
+** calque on ma.
