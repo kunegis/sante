@@ -115,7 +115,7 @@ class Juhrnal:
                 text_inner= mm
                 mmm= re.compile('([0-9]*)([^0-9)])').fullmatch(text_inner)
                 if not mmm:
-                    self.raise_error('Syntax error in event ({text_inner})')
+                    self.raise_error(f'Syntax error in event ({text_inner})')
                 text_intensity  = mmm.group(1)
                 event_underlying= mmm.group(2)
                 event= f'({event_underlying})'

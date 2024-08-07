@@ -509,7 +509,7 @@ def plot_measurements(j: juhrnal.Juhrnal):
     fig, axarr= plt.subplots(2, sharex= True)
     axarr[0].plot(x, ys, 'go', alpha= 0.2)
     axarr[1].plot(x, yd, 'bo', alpha= 0.2)
-    axarr[0].set_title('Pressure measurements by day')
+    axarr[0].set_title('Blood pressure by day')
     plt.xlim([x[0] - datetime.timedelta(days= 1), x[-1] + datetime.timedelta(days= 1)])
     set_xlabel_month_by_day(axarr[0], hide_text= True)
     set_xlabel_month_by_day(axarr[1])
@@ -523,7 +523,7 @@ def plot_measurements(j: juhrnal.Juhrnal):
     # @P.scatter
     fig, ax= plt.subplots()
     ax.plot(yd, ys, 'o', alpha= 0.1)
-    plt.title('Pressure measurements, scatter plot')
+    plt.title('Blood pressure, scatter plot')
     plt.xlabel('Diastolic [mmHg]')
     plt.ylabel('Systolic [mmHg]')
     ax.xaxis.set_major_locator(ticker.MaxNLocator(integer= True))
