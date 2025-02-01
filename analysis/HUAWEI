@@ -14,7 +14,7 @@ How to get Huawei steps data:
 * Click on the link in the email, login again, be sent a notification on the smartphone with a number, enter it on the website
 * Click on "Request Data", type in password again, be sent a notification email (always in the spam folder), enter it on the website
 * Click on "Download"; it's a "zip" file
-* Unzip the file not using "unzip", but using "7za x FILENAME" (it's encrypted, use the password entered earlier).  Warning:  the "zip file" does not contain a directory and will spam the current directory with data. 
+* Unzip the file not using "unzip", but using "7za x FILENAME" (it's encrypted, use the password entered earlier).  Warning:  the "zip file" does not contain a directory and will spam the current directory with data.  "7za" will output an error message ("CRC Failed in encrypted file") but the data is still decrypted.
 * The data is in the file 'SportsHealth data & description'/SportsHealth-Data.xls which is a binary spreadsheet.  From time to time, the directory is named 'SportsHealth data & desciption'.
 * Open that spreadsheet with LibreOffice.
 * Go to page 11 of the spreadsheet (sport daily dimen statistics).

@@ -1,3 +1,5 @@
+* complete-timeline plots:  should only start at the first nonzero number.
+* normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
 
 == Parking lot ==
 * Sante:  Plot of @X
@@ -10,7 +12,6 @@
 ** set_xlabel_year_by_week:   wf.*, wv.*
 ** set_xlabel_year_by_month:  mf.*, mv.*
 ** set_xlabel_year_by_year:   		  (done individually:  av.*)
-* normalization:  start normalization from the earliest instance of each event (needed when not excluding zero values)
 * make BMI plot from @W+@H+age
 * Exclude dates without day of the month from day-of-week plots, and dates without month from month-of-the-year plots
 * Measurement plots:  temperature by time.
